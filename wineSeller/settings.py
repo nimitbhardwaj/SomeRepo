@@ -25,7 +25,7 @@ SECRET_KEY = '*c1-@aq=ljj)1v@wx-w$k&77%p-t_*rjd3+yc&z58gu1uusdz@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,9 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'wine.apps.WineConfig',
+    'corsheaders',
 ]
 
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -48,6 +54,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+USE_ETAGS = True
 
 ROOT_URLCONF = 'wineSeller.urls'
 
@@ -75,8 +85,12 @@ WSGI_APPLICATION = 'wineSeller.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'wineDatabase',
+        'USER': 'wineuser',
+        'PASSWORD': 'test123',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
